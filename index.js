@@ -9,7 +9,12 @@ import leaveRoutes from "./routes/leave.js";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://payroll-ms-backend.vercel.app/",
+    credentials: true,
+  })
+);
 app.use("/uploads", express.static("public/uploads"));
 app.use("/api/auth", authRouter);
 app.use("/api/department", DepartmentRouter);
