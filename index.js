@@ -7,6 +7,13 @@ import EmployeeRouter from "./routes/employee.js";
 import SalaryRouter from "./routes/salary.js";
 import leaveRoutes from "./routes/leave.js";
 
+connectDB()
+    .then(() => {
+      console.log("Database connected successfully");
+    })
+    .catch((err) => {
+      console.error("Database connection failed:", err);
+    });
 const app = express();
 app.use(express.json());
 app.use(
@@ -15,6 +22,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use("/uploads", express.static("public/uploads"));
 app.use("/api/auth", authRouter);
 app.use("/api/department", DepartmentRouter);
@@ -27,12 +35,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  connectDB()
-    .then(() => {
-      console.log("Database connected successfully");
-    })
-    .catch((err) => {
-      console.error("Database connection failed:", err);
-    });
   console.log(`Server is running on port ${process.env.PORT}`);
 });
